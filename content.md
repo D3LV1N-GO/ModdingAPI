@@ -1,9 +1,9 @@
-# Введение
+# Introduction
 
-Весь моддинг будет происходить на Lua. Посмотреть документацию можно по <a href="https://www.lua.org/docs.html">ссылке</a>. Что бы запустить мод нужно скачать dll файл из моего бота, в папке с игрой создатся одна папка: D3Mods, в ней будет лежать файл hook.lua, скрипт который будет запущен после запуска игры. Пока что моддинг находится в очень раннем бета-тесте. Этот моддинг рассматтривался и задумывался как плагины для серверов. Для получения информации с сервера есть несколько функций.
+All modding will take place on Lua. You can view the documentation at <a href="https://www.lua.org/docs.html ">the link</a>. To run the mod, you need to download a dll file from my bot, one folder will be created in the folder with the game: D3Mods, it will contain the hook.lua file, the script that will be run after the game is started. So far, modding is in a very early beta test. This modding was considered and conceived as plugins for servers. There are several functions for getting information from the server.
 ## OnChatMessage
-Функция которая принимает два аргумента message, sender. Вызывается при отправлении собщения в чат любым игроком. Пример кода:
-```lua
+A function that takes two arguments message, sender. It is called when any player sends a message to the chat. Code example:
+``lua
 OnChatMessage = function(message, sender)
     if message == "Hello!" then
         log(I, "hello!")
@@ -11,9 +11,9 @@ OnChatMessage = function(message, sender)
 end
 ```
 ## OnInstantiate
-Функция принимающая так же два аргумента: prop, player. Prop - название объекта который был установлен, player - владелец объекта. Функция будет детектить даже дочерние объекты, главное что бы объект имел компонент Photon.Pun.PhotonView.
-Пример работы с OnInstantiate:
-```lua
+A function that also accepts two arguments: prop, player. Prop is the name of the object that was installed, player is the owner of the object. The function will detect even child objects, the main thing is that the object has a Photon.Pun.PhotonView component.
+Example of working with OnInstantiate:
+``lua
 OnInstantiate = function(prop, player)
     if prop:find("Barrel") and player == "D3LV!N" then
         DestroyGameObject(prop)
@@ -21,14 +21,14 @@ OnInstantiate = function(prop, player)
 end
 ```
 ## GameObject
-Моддинг предоставляет несколько базовых команд для работы с игровыми объектами.
+Modding provides several basic commands for working with game objects.
 ### Instantiate
-Функция устанавливает объект на сцене. Сигнатура:
-```lua
-Instantiate(
-    "PropName", --авторегистрация объекта при установке (string)
-    "PropPath", --Полный путь до пропа (string)
-    0.1, --X pos (float)
+The function sets an object on the stage. Signature:
+``lua
+
+Instantiate("propName", --auto-registration of the object during installation (string)
+"PropPath", --Full path to prop (string)
+0.1, --X pos (float)
     100, --Y pos (float)
     0.2, --Z pos (float)
     0.1, --X rot (float)
@@ -39,15 +39,15 @@ Instantiate(
 )
 ```
 ### DestroyGameObject
-Функция которая удаляет GameObject по имени. Пример:
-```lua
+A function that deletes a GameObject by name. Example:
+``lua
 DestroyGameObject("Barrel100073")
 ```
 
 ### RegisterGameObject
-Функия регистрирует игровой первый игровой объект на сцене с именем которое вы укажете.
-Пример:
-```lua
+The function registers the game's first game object on the stage with the name you specify.
+Example:
+``lua
 OnInstantiate = function(prop, player)
     if prop:find("Barrel") then
         RegisterGameObject(prop)
@@ -56,8 +56,8 @@ end
 ```
 
 ### GetPosition
-Функция возвращает три float переменных (позиция объекта). Пример:
-```lua
+The function returns three float variables (the position of the object). Example:
+``lua
 OnInstantiate = function(prop, player)
     if prop:find("Barrel") then
         local x, y, z = GetPosition(prop)
@@ -67,8 +67,8 @@ end
 ```
 
 ### SetPosition
-Функция принимает имя объекьта, три float переменных куда будет перемещен ваш объект. Пример:
-```lua
+The function takes the name of the object, three float variables where your object will be moved. Example:
+``lua
 OnInstantiate = function(prop, player)
     if prop:find("Barrel") then
         SetPositiopn(prop, x, y, z)
@@ -77,27 +77,27 @@ end
 ```
 
 ### AutoRegister
-Функция включает авторегистрация всех игроков (объект player). Функция работает лучше чем обычная регистрация, без ошибок поскольку использует указатель на установленный объект. Пример:
-```lua
+The function enables auto-registration of all players (the player object). The function works better than regular registration, without errors, because it uses a pointer to the installed object. Example:
+``lua
 AutoRegister()
 
 OnChatMessage = function(sender, message)
     if message == "!cube for me" then
-        local x, y, z = GetPosition(sender) --так как включена авторегистрация игроков, пользователь на карте уже будет
-        Instantiate("CubeForPlayer", "physcube", x, y + 3, z, 0,0,0,0, 0) --устанавливаем объект куба на координатах игрока
+        local x, y, z = GetPosition(sender) --since auto-registration of players is enabled, the user will already be on the map
+        Instantiate("CubeForPlayer", "physcube", x, y + 3, z, 0,0,0,0, 0) --set the cube object to the coordinates of the player
     end
 end
 
 OnInstantiate = function(prop, player)
---Ничего не пишем для регистрации игроков, игроки регистрируются автоматически
+-- We do not write anything for the registration of players, players register automatically
 end function
 ```
 
 ## Player
-Работа с локальным игроком.
+Working with a local player.
 
 ### PlayerTeleport
-Телепортирует игрока на указаные координаты, функция принимает 3 float переменных, пример:
+Teleports the player to the specified coordinates, the function accepts 3 float variables, example:
 
 ```lua
 if message == "!TPMe" then
