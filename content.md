@@ -23,7 +23,7 @@ end
 ## GameObject
 Моддинг предоставляет несколько базовых команд для работы с игровыми объектами.
 ### Instantiate
-Команда устанавливает объект на сцене. Сигнатура:
+Функция устанавливает объект на сцене. Сигнатура:
 ```lua
 Instantiate(
     "PropName", --авторегистрация объекта при установке (string)
@@ -38,4 +38,69 @@ Instantiate(
     1 -- group (int)
 )
 ```
-###
+### DestroyGameObject
+Функция которая удаляет GameObject по имени. Пример:
+```lua
+DestroyGameObject("Barrel100073")
+```
+
+### RegisterGameObject
+Функия регистрирует игровой первый игровой объект на сцене с именем которое вы укажете.
+Пример:
+```lua
+OnInstantiate = function(prop, player)
+    if prop:find("Barrel") then
+        RegisterGameObject(prop)
+    end
+end
+```
+
+### GetPosition
+Функция возвращает три float переменных (позиция объекта). Пример:
+```lua
+OnInstantiate = function(prop, player)
+    if prop:find("Barrel") then
+        local x, y, z = GetPosition(prop)
+        PlayerTeleport(x, y, z)
+    end
+end
+```
+
+### SetPosition
+Функция принимает имя объекьта, три float переменных куда будет перемещен ваш объект. Пример:
+```lua
+OnInstantiate = function(prop, player)
+    if prop:find("Barrel") then
+        SetPositiopn(prop, x, y, z)
+    end
+end
+```
+
+### AutoRegister
+Функция включает авторегистрация всех игроков (объект player). Функция работает лучше чем обычная регистрация, без ошибок поскольку использует указатель на установленный объект. Пример:
+```lua
+AutoRegister()
+
+OnChatMessage = function(sender, message)
+    if message == "!cube for me" then
+        local x, y, z = GetPosition(sender) --так как включена авторегистрация игроков, пользователь на карте уже будет
+        Instantiate("CubeForPlayer", "physcube", x, y + 3, z, 0,0,0,0, 0) --устанавливаем объект куба на координатах игрока
+    end
+end
+
+OnInstantiate = function(prop, player)
+ --Ничего не пишем, игроки регистрируются автоматически
+end function
+```
+
+## Player
+Работа с локальным игроком.
+
+### PlayerTeleport
+Телепортирует игрока на указаные координаты, функция принимает 3 float переменных, пример:
+
+```lua
+if message == "!TPMe" then
+    PlayerTeleport(0, 100, 0)
+end
+```
