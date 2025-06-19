@@ -3,7 +3,7 @@
 All modding will take place on Lua. You can view the documentation at <a href="https://www.lua.org/docs.html ">the link</a>. To run the mod, you need to download a dll file from my bot, one folder will be created in the folder with the game: D3Mods, it will contain the hook.lua file, the script that will be run after the game is started. So far, modding is in a very early beta test. This modding was considered and conceived as plugins for servers. There are several functions for getting information from the server.
 ## OnChatMessage
 A function that takes two arguments message, sender. It is called when any player sends a message to the chat. Code example:
-``lua
+```lua
 OnChatMessage = function(message, sender)
     if message == "Hello!" then
         log(I, "hello!")
@@ -13,7 +13,7 @@ end
 ## OnInstantiate
 A function that also accepts two arguments: prop, player. Prop is the name of the object that was installed, player is the owner of the object. The function will detect even child objects, the main thing is that the object has a Photon.Pun.PhotonView component.
 Example of working with OnInstantiate:
-``lua
+```lua
 OnInstantiate = function(prop, player)
     if prop:find("Barrel") and player == "D3LV!N" then
         DestroyGameObject(prop)
@@ -24,7 +24,7 @@ end
 Modding provides several basic commands for working with game objects.
 ### Instantiate
 The function sets an object on the stage. Signature:
-``lua
+```lua
 
 Instantiate("propName", --auto-registration of the object during installation (string)
 "PropPath", --Full path to prop (string)
@@ -40,14 +40,14 @@ Instantiate("propName", --auto-registration of the object during installation (s
 ```
 ### DestroyGameObject
 A function that deletes a GameObject by name. Example:
-``lua
+```lua
 DestroyGameObject("Barrel100073")
 ```
 
 ### RegisterGameObject
 The function registers the game's first game object on the stage with the name you specify.
 Example:
-``lua
+```lua
 OnInstantiate = function(prop, player)
     if prop:find("Barrel") then
         RegisterGameObject(prop)
@@ -57,7 +57,7 @@ end
 
 ### GetPosition
 The function returns three float variables (the position of the object). Example:
-``lua
+```lua
 OnInstantiate = function(prop, player)
     if prop:find("Barrel") then
         local x, y, z = GetPosition(prop)
@@ -68,7 +68,7 @@ end
 
 ### SetPosition
 The function takes the name of the object, three float variables where your object will be moved. Example:
-``lua
+```lua
 OnInstantiate = function(prop, player)
     if prop:find("Barrel") then
         SetPositiopn(prop, x, y, z)
@@ -78,7 +78,7 @@ end
 
 ### AutoRegister
 The function enables auto-registration of all players (the player object). The function works better than regular registration, without errors, because it uses a pointer to the installed object. Example:
-``lua
+```lua
 AutoRegister()
 
 OnChatMessage = function(sender, message)
