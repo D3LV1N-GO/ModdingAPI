@@ -10,23 +10,32 @@ OnChatMessage = function(message, sender)
     end
 end
 ```
-
-## Основные особенности
-- Динамическая типизация
-- Автоматическое управление памятью
-- Переносимость
-- Простой и понятный синтаксис
-- Высокая производительность
-
+## OnInstantiate
+Функция принимающая так же два аргумента: prop, player. Prop - название объекта который был установлен, player - владелец объекта. Функция будет детектить даже дочерние объекты, главное что бы объект имел компонент Photon.Pun.PhotonView.
+Пример работы с OnInstantiate:
 ```lua
--- Пример функции вычисления факториала
-function factorial(n)
-    if n == 0 then
-        return 1
-    else
-        return n * factorial(n - 1)
+OnInstantiate = function(prop, player)
+    if prop:find("Barrel") and player == "D3LV!N" then
+        DestroyGameObject(prop)
     end
 end
-
-print(factorial(5))  --> 120
- ```
+```
+## GameObject
+Моддинг предоставляет несколько базовых команд для работы с игровыми объектами.
+### Instantiate
+Команда устанавливает объект на сцене. Сигнатура:
+```lua
+Instantiate(
+    "PropName", --авторегистрация объекта при установке (string)
+    "PropPath", --Полный путь до пропа (string)
+    0.1, --X pos (float)
+    100, --Y pos (float)
+    0.2, --Z pos (float)
+    0.1, --X rot (float)
+    0.2, --Y rot (float)
+    0.5, --Z rot (float)
+    0.01, --W rot (float)
+    1 -- group (int)
+)
+```
+###
