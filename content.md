@@ -89,7 +89,7 @@ OnChatMessage = function(sender, message)
 end
 
 OnInstantiate = function(prop, player)
- --Ничего не пишем, игроки регистрируются автоматически
+--Ничего не пишем для регистрации игроков, игроки регистрируются автоматически
 end function
 ```
 
