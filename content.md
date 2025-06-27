@@ -10,6 +10,7 @@ OnChatMessage = function(message, sender)
     end
 end
 ```
+
 ## OnInstantiate
 A function that also accepts two arguments: prop, player. Prop is the name of the object that was installed, player is the owner of the object. The function will detect even child objects, the main thing is that the object has a Photon.Pun.PhotonView component.
 Example of working with OnInstantiate:
@@ -93,6 +94,28 @@ OnInstantiate = function(prop, player)
 end function
 ```
 
+### TransferHost
+The TransferHost function allows you to assign other people's objects to yourself. Example:
+```lua
+AutoRegister()
+Count = 0
+OnChatMessage = function(sender, message)
+    if message == "!IHateBarrels" then
+        for i = 0, Count do
+            TransferHost("Barrel")
+            Destroy("Barrel")
+        end
+    end
+end
+
+OnInstantiate = function(player, name)
+    if name:find("Barrel") then
+        RegisterGameObject(name, "Barrel")
+        Count = Count + 1
+    end
+end
+```
+
 ## Player
 Working with a local player.
 
@@ -102,5 +125,15 @@ Teleports the player to the specified coordinates, the function accepts 3 float 
 ```lua
 if message == "!TPMe" then
     PlayerTeleport(0, 100, 0)
+end
+```
+
+### SetSoawnable
+The SetSpawnable function allows you to set the prop that the tool gun will spawn. Example:
+```lua
+OnChatMessage = function(sender, message)
+    if message:find("!set ") then
+        SetSpawnable(message:gsub("!set ", ""))
+    end
 end
 ```
