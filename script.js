@@ -6,12 +6,33 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Преобразуем Markdown в HTML
     document.getElementById('content').innerHTML = marked.parse(md);
     
-    // Подсвечиваем код
+    // Подсвечиваем код и добавляем номера строк
     document.querySelectorAll('pre code').forEach(block => {
+        // Сохраняем оригинальный код
+        const originalCode = block.innerHTML;
+        
+        // Разбиваем на строки
+        const lines = originalCode.split('\n');
+        
+        // Удаляем пустую последнюю строку
+        if (lines.length > 0 && lines[lines.length - 1].trim() === '') {
+            lines.pop();
+        }
+        
+        // Создаём новую разметку с номерами строк
+        let numberedCode = '';
+        for (let i = 0; i < lines.length; i++) {
+            numberedCode += `<span class="line">${lines[i]}</span>\n`;
+        }
+        
+        // Обновляем содержимое
+        block.innerHTML = numberedCode;
+        
+        // Подсвечиваем синтаксис
         hljs.highlightElement(block);
-        // Добавляем номер строк для блоков кода
-        const lines = block.innerHTML.split('\n').length - 1;
-        block.innerHTML = `<span class="line-numbers">${Array(lines).fill(0).map((_, i) => `<span>${i+1}</span>`).join('\n')}</span>\n${block.innerHTML}`;
+        
+        // Добавляем обработчик для копирования кода
+        addCopyButton(block);
     });
     
     // Обновляем номер страницы при прокрутке
@@ -41,4 +62,45 @@ function updatePageCounter() {
     
     document.querySelector('.page-counter').innerHTML = 
         `Modding API by DЗLV!N<br>Страница ${currentPage} из ${totalPages}<br>Special thx: .exe`;
+}
+
+function addCopyButton(codeBlock) {
+    const container = codeBlock.closest('pre');
+    const copyButton = document.createElement('button');
+    copyButton.className = 'copy-button';
+    copyButton.innerHTML = '📋';
+    copyButton.title = 'Копировать код';
+    
+    copyButton.addEventListener('click', () => {
+        const textToCopy = codeBlock.innerText;
+        navigator.clipboard.writeText(textToCopy).then(() => {
+            copyButton.innerHTML = '✓';
+            setTimeout(() => {
+                copyButton.innerHTML = '📋';
+            }, 2000);
+        });
+    });
+    
+    container.style.position = 'relative';
+    copyButton.style.position = 'absolute';
+    copyButton.style.top = '10px';
+    copyButton.style.right = '10px';
+    copyButton.style.background = 'rgba(255, 77, 141, 0.2)';
+    copyButton.style.border = 'none';
+    copyButton.style.borderRadius = '4px';
+    copyButton.style.color = 'var(--accent-light)';
+    copyButton.style.padding = '5px 10px';
+    copyButton.style.cursor = 'pointer';
+    copyButton.style.transition = 'all 0.2s';
+    copyButton.style.zIndex = '10';
+    
+    copyButton.addEventListener('mouseenter', () => {
+        copyButton.style.background = 'rgba(255, 77, 141, 0.4)';
+    });
+    
+    copyButton.addEventListener('mouseleave', () => {
+        copyButton.style.background = 'rgba(255, 77, 141, 0.2)';
+    });
+    
+    container.appendChild(copyButton);
 }

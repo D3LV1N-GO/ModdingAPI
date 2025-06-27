@@ -54,9 +54,21 @@ body {
     color: var(--accent-light);
     font-size: 2.8rem;
     letter-spacing: 1px;
-    text-shadow: 0 0 15px rgba(255, 128, 179, 0.4);
     margin-bottom: 15px;
     font-weight: 700;
+    position: relative;
+    display: inline-block;
+}
+
+.book-header h1::after {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(to right, transparent, var(--accent), transparent);
+    opacity: 0.7;
 }
 
 .decoration {
@@ -146,7 +158,6 @@ a {
 a:hover {
     background-position: left bottom;
     color: white;
-    text-shadow: 0 0 8px rgba(255, 128, 179, 0.6);
 }
 
 pre {
@@ -174,6 +185,27 @@ pre code {
     font-family: 'Fira Code', monospace;
     font-size: 15px;
     line-height: 1.5;
+    display: block;
+    position: relative;
+    padding-left: 3.5em !important; /* Отступ для номеров строк */
+    counter-reset: line;
+}
+
+pre code .line {
+    display: block;
+    position: relative;
+}
+
+pre code .line::before {
+    content: counter(line);
+    counter-increment: line;
+    position: absolute;
+    left: -3.5em;
+    width: 2.5em;
+    text-align: right;
+    color: var(--text-secondary);
+    opacity: 0.6;
+    user-select: none;
 }
 
 blockquote {
@@ -218,7 +250,6 @@ th {
     background: linear-gradient(to bottom, var(--accent-dark), var(--accent));
     color: white;
     font-weight: 600;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 tr:nth-child(even) {
@@ -229,7 +260,7 @@ tr:hover {
     background-color: rgba(255, 77, 141, 0.1);
 }
 
-/* Стили для скроллбара */
+/* Исправленный стиль скроллбара */
 pre::-webkit-scrollbar {
     height: 10px;
 }
@@ -241,9 +272,19 @@ pre::-webkit-scrollbar-track {
 }
 
 pre::-webkit-scrollbar-thumb {
-    background: linear-gradient(to right, var(--accent), var(--accent-dark));
+    background: var(--accent);
     border-radius: 5px;
     border: 2px solid rgba(0, 0, 0, 0.3);
+}
+
+pre::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-light);
+}
+
+/* Для Firefox */
+pre {
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent) rgba(0, 0, 0, 0.2);
 }
 
 @media (max-width: 768px) {
@@ -267,5 +308,14 @@ pre::-webkit-scrollbar-thumb {
     
     pre {
         padding: 15px;
+    }
+    
+    pre code {
+        padding-left: 2.5em !important;
+    }
+    
+    pre code .line::before {
+        left: -2.5em;
+        width: 2em;
     }
 }
