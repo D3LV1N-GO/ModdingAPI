@@ -140,7 +140,7 @@ if message == "!TPMe" then
 end
 ```
 
-### SetSoawnable
+### SetSpawnable
 The SetSpawnable function allows you to set the prop that the tool gun will spawn. Example:
 ```lua
 OnChatMessage = function(sender, message)
