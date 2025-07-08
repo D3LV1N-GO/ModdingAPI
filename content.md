@@ -21,6 +21,18 @@ OnInstantiate = function(prop, player)
     end
 end
 ```
+## OnPlayerLeft
+The function is called when a player leaves the server. Example:
+```lua
+    OnPlayerLeft = function(player) 
+        for i = 0, #Players do
+            if Players[i] == player then
+                Players:remove(i)
+            end
+        end
+    end
+```
+
 ## GameObject
 Modding provides several basic commands for working with game objects.
 ### Instantiate
@@ -28,8 +40,8 @@ The function sets an object on the stage. Signature:
 ```lua
 
 Instantiate("propName", --auto-registration of the object during installation (string)
-"PropPath", --Full path to prop (string)
-0.1, --X pos (float)
+    "PropPath", --Full path to prop (string)
+    0.1, --X pos (float)
     100, --Y pos (float)
     0.2, --Z pos (float)
     0.1, --X rot (float)
@@ -137,3 +149,44 @@ OnChatMessage = function(sender, message)
     end
 end
 ```
+## Players
+Working with other players.
+### TeleportPlayer
+The function teleports other players. Signature:
+```lua
+TeleportPlayer(
+    0, --X pos
+    0, --Y pos
+    0, --Z pos
+    "D3LV1N" --Player nickname
+)
+```
+### GiveCash
+The function gives money to other players. Signature:
+```lua
+GiveCash(
+    9999, -- value of cash
+    "D3LV1N" --Nickname
+)
+```
+## Sending text
+There are two functions for transmitting information to players: SendText (a full-screen text table), SendChatMessage.
+These functions have 2 overloads, the function either accepts only text and sends it to all players, or the function also accepts the player's
+nickname and sends the message only to him.
+### SendText
+Signature:
+```lua
+SendText(
+    "Hello", --header
+    "world!", --text
+    "D3LV1N" --Recipient (optional)
+)
+```
+### SendChatMessage
+Signature:
+```lua
+SendChatMessage(
+    "Hello world!", --mesages text
+    "D3LV1N" --Recipient (optional)
+)
+``` 
