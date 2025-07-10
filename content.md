@@ -32,6 +32,13 @@ The function is called when a player leaves the server. Example:
         end
     end
 ```
+## OnKilled
+For this feature to work properly, you need to enable KillFeed. Example of use:
+```lua
+OnKilled = function(killer, killed)
+GiveCash(killer, 200)
+end
+```
 
 ## GameObject
 Modding provides several basic commands for working with game objects.
