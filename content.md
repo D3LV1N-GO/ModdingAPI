@@ -39,6 +39,14 @@ OnKilled = function(killer, killed)
 GiveCash(killer, 200)
 end
 ```
+## Update
+Called from within a Lua loop while it is running. Can be used for timers etc.
+Example:
+```lua
+Update = function()--no args
+log(I, "Update was called")
+end
+```
 
 ## GameObject
 Modding provides several basic commands for working with game objects.
