@@ -4,7 +4,7 @@ All modding will take place on Lua. You can view the documentation at <a href="h
 ## OnChatMessage
 A function that takes two arguments message, sender. It is called when any player sends a message to the chat. Code example:
 ```lua
-OnChatMessage = function(message, sender)
+OnChatMessage = function(sender, message)
     if message == "Hello!" then
         log(I, "hello!")
     end
@@ -15,39 +15,32 @@ end
 A function that also accepts two arguments: prop, player. Prop is the name of the object that was installed, player is the owner of the object. The function will detect even child objects, the main thing is that the object has a Photon.Pun.PhotonView component.
 Example of working with OnInstantiate:
 ```lua
-OnInstantiate = function(prop, player)
+OnInstantiate = function(player, name)
     if prop:find("Barrel") and player == "D3LV!N" then
         DestroyGameObject(prop)
     end
-end
-```
-## OnPlayerLeft
-The function is called when a player leaves the server. Example:
-```lua
-    OnPlayerLeft = function(player) 
-        for i = 0, #Players do
-            if Players[i] == player then
-                Players:remove(i)
-            end
-        end
-    end
-```
-## OnKilled
-For this feature to work properly, you need to enable KillFeed. Example of use:
-```lua
-OnKilled = function(killer, killed)
-GiveCash(killer, 200)
 end
 ```
 ## OnPlayerJoined
 Invokes then player join in room. Example:
 ```lua
 OnPlayerJoined = function(player)
-    if player == "D3LV1N" then
-        SendChatMessage("Cool guy joined to server") --sending text to all players
-    else
-        SendChatMessage("Hello new player!", player) --sending to only new player
-    end
+    Players[player] = "citizen"
+end
+```
+
+## OnPlayerLeft
+The function is called when a player leaves the server. Example:
+```lua
+OnPlayerLeft = function(player) 
+    Players[player] = nil
+end
+```
+## OnKilled
+For this feature to work properly, you need to enable KillFeed. Example of use:
+```lua
+OnKilled = function(killer, killed)
+GiveCash(killer, 200)
 end
 ```
 
