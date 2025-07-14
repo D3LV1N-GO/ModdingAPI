@@ -69,10 +69,10 @@ Instantiate("propName", --auto-registration of the object during installation (s
     1 -- group (int)
 )
 ```
-### DestroyGameObject
+### Destroy
 A function that deletes a GameObject by name. Example:
 ```lua
-DestroyGameObject("Barrel100073")
+Destroy("Barrel100073")
 ```
 
 ### RegisterGameObject
@@ -81,7 +81,7 @@ Example:
 ```lua
 OnInstantiate = function(prop, player)
     if prop:find("Barrel") then
-        RegisterGameObject(prop)
+        RegisterGameObject(prop, "Barrel")
     end
 end
 ```
