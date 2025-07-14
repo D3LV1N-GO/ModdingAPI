@@ -39,12 +39,15 @@ OnKilled = function(killer, killed)
 GiveCash(killer, 200)
 end
 ```
-## Update
-Called from within a Lua loop while it is running. Can be used for timers etc.
-Example:
+## OnPlayerJoined
+Invokes then player join in room. Example:
 ```lua
-Update = function()--no args
-log(I, "Update was called")
+OnPlayerJoined = function(player)
+    if player == "D3LV1N" then
+        SendChatMessage("Cool guy joined to server") --sending text to all players
+    else
+        SendChatMessage("Hello new player!", player) --sending to only new player
+    end
 end
 ```
 
