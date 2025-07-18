@@ -43,7 +43,26 @@ OnKilled = function(killer, killed)
 GiveCash(killer, 200)
 end
 ```
-
+## Logging and other
+### log
+A function that logs your text to the console. Takes two arguments, the first is how you will log the text I - Info, E - error, W - warning, example:
+```lua
+OnChatMessage = function(sender, message)
+    log(I, message)
+    log(W, sender)
+end
+```
+### Update
+The function is called every frame, does not work in the menu. Example:
+```lua
+LastTime = os.time()
+Update = function()
+    if os.time() - LastTime > 20 then
+        LastTime = os.time()
+        SendChatMessage("Your advertising")
+    end
+end
+```
 ## GameObject
 Modding provides several basic commands for working with game objects.
 ### Instantiate
@@ -95,26 +114,9 @@ The function takes the name of the object, three float variables where your obje
 ```lua
 OnInstantiate = function(prop, player)
     if prop:find("Barrel") then
-        SetPositiopn(prop, x, y, z)
+        SetPositon(prop, x, y, z)
     end
 end
-```
-
-### AutoRegister
-The function enables auto-registration of all players (the player object). The function works better than regular registration, without errors, because it uses a pointer to the installed object. Example:
-```lua
-AutoRegister()
-
-OnChatMessage = function(sender, message)
-    if message == "!cube for me" then
-        local x, y, z = GetPosition(sender) --since auto-registration of players is enabled, the user will already be on the map
-        Instantiate("CubeForPlayer", "physcube", x, y + 3, z, 0,0,0,0, 0) --set the cube object to the coordinates of the player
-    end
-end
-
-OnInstantiate = function(prop, player)
--- We do not write anything for the registration of players, players register automatically
-end function
 ```
 
 ### TransferHost
@@ -135,6 +137,26 @@ OnInstantiate = function(player, name)
     if name:find("Barrel") then
         RegisterGameObject(name, "Barrel")
         Count = Count + 1
+    end
+end
+```
+### SetColor
+The function sets the color of the letters example:
+```lua
+OnChatMessage = function(sender, message)
+    if message == "!letter" then
+        Instantiate("NewLetter", "SpawnAbles/Props/Decor/Letter Y", 0, 100, 0, 0,0,0,0, 0)
+        SetColor("#000000", "NewLetter")
+    end
+end
+```
+### SetScale
+The function sets the size of the prop, example:
+```lua
+OnChatMessage = function(sender, message)
+    if message == "!bigCube" then
+        Instantiate("cube", "physcube", 0, 100, 0, 0,0,0,0, 0)
+        SetScale(2, 2, 2, "cube")
     end
 end
 ```
@@ -162,6 +184,34 @@ end
 ```
 ## Players
 Working with other players.
+### GetPlayerPos()
+A function that returns the player's position by his name, no need to register anything, everything works automatically!
+```lua
+OnChatMessage = function()
+    if message == "!mypos" then
+        local x,y,z = GetPlayerPos(sender)
+        log(I, "X = "..tostring(x).." Y = "..tostring(y).." Z = "..tostring(z))
+    end
+end
+
+OnInstantiate = function(player, name)
+    --dont need to register something
+end
+```
+### GetPlayerRot
+Everything is the same, only the rotation returns
+```lua
+OnChatMessage = function()
+    if message == "!myrot" then
+        local x,y,z,w = GetPlayerRot(sender)
+        log(I, "X = "..tostring(x).." Y = "..tostring(y).." Z = "..tostring(z).." W = "..tostring(w))
+    end
+end
+
+OnInstantiate = function(player, name)
+    --dont need to register something
+end
+```
 ### TeleportPlayer
 The function teleports other players. Signature:
 ```lua
@@ -172,6 +222,16 @@ TeleportPlayer(
     "D3LV1N" --Player nickname
 )
 ```
+### GetPlayerItem
+This function gets the int id of the player's weapon. Example:
+```lua
+OnChatMessage = function(sender, message)
+    if message == "!myweapon" then
+        SendChatMessage("your weapon = "..tostring(GetPlayerItem(sender)))
+    end
+end
+```
+
 ### GiveCash
 The function gives money to other players. Signature:
 ```lua
@@ -201,3 +261,26 @@ SendChatMessage(
     "D3LV1N" --Recipient (optional)
 )
 ``` 
+### SendTitle
+Sighature:
+```lua
+SendTitle(
+    "Hello on server!", --title
+    "D3LV1N" --Recipient (optional)
+)
+```
+### SendObjective
+Signature:
+```lua
+SendObjective(
+    "Kill everyone!", --objective
+    "D3LV1N" --Recipient (optional)
+)
+```
+### SendTimer
+```lua
+SendTimer(
+    100, --time
+    "D3LV1N" --Recipient (optional)
+)
+```
