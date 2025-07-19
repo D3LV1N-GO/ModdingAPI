@@ -240,6 +240,57 @@ GiveCash(
     "D3LV1N" --Nickname
 )
 ```
+
+## SendRules
+Sends your rules to the server. Can be sent to one player or to all at once.
+nil = false
+1 = true
+Signature:
+```lua
+SendRules(
+    nil, --Action Cam
+    nil, --BAN AI GOREDOLLS
+    nil, --BAN BIG EXPLOSIVES
+    nil, --BAN HATS AND ARMOR
+    nil, --BAN GOREDOLLS
+    nil, --BAN ENTITES
+    nil, --BAN EXPLOSIVES
+    nil, --BAN EXPLOSIVE WEAPON
+    nil, --BAN FOOD
+    nil, --BAN HEAVY WEAPONS
+    nil, --BAN LIHT WEAPONS
+    nil, --BAN MEDICINE
+    nil, --BAN MEELE WEAPONS
+    nil, --BAN NEXTBOTS
+    nil, --BAN PROPS
+    nil, --BAN REALITY CRUSHER
+    nil, --BAN VEHICLES
+    nil, --CAN DROP WEAPONS
+    nil, --CREATOR MODE
+    nil, --INTER-TEAM PVP/FRIENDLY FIRE
+    nil, --HOST BADGE
+    nil, --HOST SWITCH FEED
+    nil, --IGNORED BY AI
+    nil, --INFINITE AMMO
+    nil, --INFINITE STAMINA
+    nil, --INVINCIBILITY
+    nil, --KILL FEED
+    nil, --NOCLIP
+    nil, --PLAYER CONNECTION FEED
+    nil, --SLOWMO
+    nil, --SPAWN IS INFECTED
+    nil, --DISABLE FISTS
+    nil, --DISABLE KICKING
+    nil, --UNKNOWNSETTING
+    10, -- RESPAWN PENALTY
+    nil, --UNKNOWNSETTING
+    nil, --ALLOW SAVE LOADING
+    nil, --ALLOW VICE HOST
+    nil, --ALLOW CHANGES BY VICE HOST
+    nil, --UNKNOWNSETTING
+    nil --UNKNOWNSETTING
+)
+```
 ## Sending text
 There are two functions for transmitting information to players: SendText (a full-screen text table), SendChatMessage.
 These functions have 2 overloads, the function either accepts only text and sends it to all players, or the function also accepts the player's
