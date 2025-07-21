@@ -242,7 +242,7 @@ GiveCash(
 ```
 
 ## SendRules
-Sends your rules to the server. Can be sent to one player or to all at once.
+Sends your rules to the server. Can be sent to to all.
 nil = false
 1 = true
 Signature:
@@ -291,6 +291,26 @@ SendRules(
     nil --UNKNOWNSETTING
 )
 ```
+### InfectPlayer
+The function infects the player with a zombie virus. Signature:
+```lua
+InfectPlayer(
+    "D3LV1N"
+)
+```
+### SetWeather
+The function sets the weather, can set it for all or for one player. Signature:
+```lua
+SetWeather(
+    10.1, --time
+    nil, --DayNightCicle
+    2, --WeatherID 0, 18
+    nil, --Rainy
+    nil, --ThunderStorm
+    "D3LV1N" --Recipient (optional)
+)
+```
+
 ## Sending text
 There are two functions for transmitting information to players: SendText (a full-screen text table), SendChatMessage.
 These functions have 2 overloads, the function either accepts only text and sends it to all players, or the function also accepts the player's
