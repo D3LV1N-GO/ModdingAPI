@@ -222,14 +222,34 @@ TeleportPlayer(
     "D3LV1N" --Player nickname
 )
 ```
-### GetPlayerItem
-This function gets the int id of the player's weapon. Example:
+### GetPlayerInfo
+This function gets the info of the player. Example:
 ```lua
 OnChatMessage = function(sender, message)
-    if message == "!myweapon" then
-        SendChatMessage("your weapon = "..tostring(GetPlayerItem(sender)))
+    if message == "!myinfo" then
+        local IsInfectedd, --bool
+        weaponID = GetPlayerInfo(sender) --int
     end
 end
+```
+### DamagePlayer
+The function gives damage to the player, example:
+```lua
+DamagePlayer(
+1, --float damage
+1, --float bleeding
+1, --IDK
+"D3LV1N", --Target (nickname)
+"/BaseAI/Armature/Model/Motion/B_Pelvis/B_Spine/B_Spine1/B_Spine2/Chest" --Target bone
+)
+```
+### KnockPlayer
+The function can either completely drop the player to the ground (without damage) or simply stop and throw away his weapon. Example:
+```lua
+KnockPlayer(
+    nil, --put or stop
+    "D3LV1N" --Target
+)
 ```
 
 ### GiveCash
@@ -241,7 +261,7 @@ GiveCash(
 )
 ```
 
-## SendRules
+### SendRules
 Sends your rules to the server. Can be sent to to all.
 nil = false
 1 = true
