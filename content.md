@@ -10,7 +10,6 @@ OnChatMessage = function(sender, message)
     end
 end
 ```
-
 ## OnInstantiate
 A function that also accepts two arguments: prop, player. Prop is the name of the object that was installed, player is the owner of the object. The function will detect even child objects, the main thing is that the object has a Photon.Pun.PhotonView component.
 Example of working with OnInstantiate:
@@ -28,7 +27,6 @@ OnPlayerJoined = function(player)
     Players[player] = "citizen"
 end
 ```
-
 ## OnPlayerLeft
 The function is called when a player leaves the server. Example:
 ```lua
@@ -86,7 +84,6 @@ A function that deletes a GameObject by name. Example:
 ```lua
 Destroy("Barrel100073")
 ```
-
 ### RegisterGameObject
 The function registers the game's first game object on the stage with the name you specify.
 Example:
@@ -97,7 +94,6 @@ OnInstantiate = function(prop, player)
     end
 end
 ```
-
 ### GetPosition
 The function returns three float variables (the position of the object). Example:
 ```lua
@@ -108,7 +104,6 @@ OnInstantiate = function(prop, player)
     end
 end
 ```
-
 ### SetPosition
 The function takes the name of the object, three float variables where your object will be moved. Example:
 ```lua
@@ -118,7 +113,21 @@ OnInstantiate = function(prop, player)
     end
 end
 ```
-
+### ChangeStatic
+The function takes the name of the object, nine float variables where your static will be changed. Example:
+```lua
+ChangeStatic(Px, --float x position
+    Py, --float y position
+    Pz, --float z position
+    Sx, --float x scale
+    Sy, --float y scale
+    Sz, --float z scale
+    Rx, --float x rotation
+    Ry, --float y rotation
+    Rz, --float z rotation
+    object --Target
+    )
+```
 ### TransferHost
 The TransferHost function allows you to assign other people's objects to yourself. Example:
 ```lua
@@ -150,6 +159,20 @@ OnChatMessage = function(sender, message)
     end
 end
 ```
+### SetText
+The function sets the text of text prop example:
+```lua
+OnChatMessage = function(sender, message)
+    if message == "!Text" then
+        Instantiate("Blackboard", "spawnables/special/text&image/Text_Blackboard", 0, 100, 0, 0,0,0,0, 0)
+        SetText("<color=purple>text" --string text
+        "Blackboard" --Target object
+        "D3LV1N" --Recipient (optional)
+        )
+    end
+end
+
+```
 ### SetScale
 The function sets the size of the prop, example:
 ```lua
@@ -160,10 +183,8 @@ OnChatMessage = function(sender, message)
     end
 end
 ```
-
 ## Player
 Working with a local player.
-
 ### PlayerTeleport
 Teleports the player to the specified coordinates, the function accepts 3 float variables, example:
 
@@ -172,7 +193,6 @@ if message == "!TPMe" then
     PlayerTeleport(0, 100, 0)
 end
 ```
-
 ### SetSpawnable
 The SetSpawnable function allows you to set the prop that the tool gun will spawn. Example:
 ```lua
@@ -251,7 +271,17 @@ KnockPlayer(
     "D3LV1N" --Target
 )
 ```
-
+### PumpPlayer
+The function trains the player, example:
+```lua
+PumpPlayer(
+    1, --float Stamina
+    2, --float Speed
+    3, --float Endurance
+    -4, --float Dexterity (negative)
+    "D3LV1N" -- Target (nickname)
+)
+```
 ### GiveCash
 The function gives money to other players. Signature:
 ```lua
@@ -260,7 +290,6 @@ GiveCash(
     "D3LV1N" --Nickname
 )
 ```
-
 ### SendRules
 Sends your rules to the server. Can be sent to to all.
 nil = false
@@ -330,7 +359,6 @@ SetWeather(
     "D3LV1N" --Recipient (optional)
 )
 ```
-
 ## Sending text
 There are two functions for transmitting information to players: SendText (a full-screen text table), SendChatMessage.
 These functions have 2 overloads, the function either accepts only text and sends it to all players, or the function also accepts the player's
