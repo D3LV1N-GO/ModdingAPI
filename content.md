@@ -210,7 +210,7 @@ DamagePlayer(
 1, --float bleeding
 1, --IDK
 "D3LV1N", --Target (nickname)
-"/BaseAI/Armature/Model/Motion/B_Pelvis/B_Spine/B_Spine1/B_Spine2/Chest" --Target bone
+GameObject --Target bone
 )
 ```
 ### KnockPlayer
