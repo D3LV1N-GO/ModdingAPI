@@ -317,7 +317,7 @@ SendFriend(
 ### ChangeSkin
 Signature:
 ```lua 
-ChangeSkin("#FF0000", "#FF0000", "#FF0000", "#FF0000", "#FF0000", "#FF0000", "#FF0000", false, 1,1,1,1,1,1,false,false,1,1,true,1, sender)
+ChangeSkin("#FF0000", "#FF0000", "#FF0000", "#FF0000", "#FF0000", "#FF0000", "#FF0000", false, 1,1,1,1,1,1,false,false,1,1,true,1, "D3LV!N")
 ```
 
 ### SendText
