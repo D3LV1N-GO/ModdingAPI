@@ -305,6 +305,21 @@ SetWeather(
 There are two functions for transmitting information to players: SendText (a full-screen text table), SendChatMessage.
 These functions have 2 overloads, the function either accepts only text and sends it to all players, or the function also accepts the player's
 nickname and sends the message only to him.
+### SendFriendReuqest
+Signtue:
+```lua
+SendFriend(
+    "text",
+    "text",
+    "D3LV!N"
+)
+```
+### ChangeSkin
+Signature:
+```lua 
+ChangeSkin("#FF0000", "#FF0000", "#FF0000", "#FF0000", "#FF0000", "#FF0000", "#FF0000", false, 1,1,1,1,1,1,false,false,1,1,true,1, sender)
+```
+
 ### SendText
 Signature:
 ```lua
